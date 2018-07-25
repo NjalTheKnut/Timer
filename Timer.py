@@ -44,37 +44,65 @@ class TimerObject:
         name = self.name
         accum = self.accum
         interval = self.interval
-        eggs = 0
-        print('counting up on: ' + name)
-        for interval in range(spam):
-            while eggs < interval:
-                self.print_time(name, accum)
-                eggs += 1
-                accum += 1
-                time.sleep(1)
+        if limit % interval == 0:
+            spam = limit + 1
+            eggs = 0
+            print('counting up on: ' + name)
+            for interval in range(spam):
+                while eggs < interval:
+                    self.print_time(name, accum)
+                    eggs += 1
+                    accum += 1
+                    time.sleep(1)
                 self.accum = accum
-        self.print_time(name, accum)
+            self.print_time(name, accum)
+        elif limit % interval != 0:
+            spam = int(limit / interval)
+            eggs = 0
+            print('counting up on: ' + name)
+            for interval in range(spam):
+                while eggs < interval:
+                    self.print_time(name, accum)
+                    eggs += 1
+                    accum += 1
+                    time.sleep(1)
+                self.accum = accum
+            self.print_time(name, accum)
     
     def downCount(self, limit):
         name = self.name
         accum = self.accum
         interval = self.interval
-        if limit % interval != 0:
-        spam = limit + 1
-        eggs = 0
-        duck = limit
-        print('counting down on: ' + name)
-        for interval in range(spam):
-            while eggs < interval:
-                self.print_time(name, duck)
-                eggs += 1
-                accum -= 1
-                duck -= 1
-                time.sleep(1)
-            self.accum = accum
-        self.print_time(name, duck)
+        if limit % interval == 0:
+            spam = limit + 1
+            eggs = 0
+            duck = limit
+            print('counting down on: ' + name)
+            for interval in range(spam):
+                while eggs < interval:
+                    self.print_time(name, duck)
+                    eggs += 1
+                    accum -= 1
+                    duck -= 1
+                    time.sleep(1)
+                self.accum = accum
+            self.print_time(name, duck)
+        elif limit % interval != 0:
+            spam = int(limit / interval)
+            eggs = 0
+            duck = limit
+            print('counting down on: ' + name)
+            for interval in range(spam):
+                while eggs < interval:
+                    self.print_time(name, duck)
+                    eggs += 1
+                    accum -= 1
+                    duck -= 1
+                    time.sleep(1)
+                self.accum = accum
+            self.print_time(name, duck)
 
 timer = TimerObject('test')
-timer.upCount(7)
+timer.upCount(6)
 timer.downCount(6)
 timer.print_data()
